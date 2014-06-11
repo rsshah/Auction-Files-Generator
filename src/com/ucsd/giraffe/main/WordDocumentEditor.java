@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.hwpf.extractor.WordExtractor;
-import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.hwpf.usermodel.Paragraph;
+import org.apache.poi.hwpf.usermodel.Table;
+import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import com.ucsd.giraffe.main.extractor.ExtractedRow;
@@ -39,8 +40,6 @@ public class WordDocumentEditor {
                 boolean eligible = true;
                 for (Map.Entry<String, String> field : prop.getFields().entrySet()) {
                     if (!row.getData().containsKey(field.getValue())) {
-                        System.out.println("Row " + i + " does not contain: " + field.getValue());
-                        System.out.println("\t" + row.getData());
                         eligible = false;
                         break;
                     }
@@ -62,36 +61,45 @@ public class WordDocumentEditor {
         }
     }
 
-    public void generateDocFile(ExtractedRow row, int num, WordDocumentProperties prop)
+    private void generateDocFile(ExtractedRow row, int num, WordDocumentProperties prop)
             throws Exception {
         HWPFDocument doc = new HWPFDocument(new FileInputStream(prop.getDocumentName()));
-        // WordExtractor a = new WordExtractor(doc);
-        // String text = a.getText();
         for (Map.Entry<String, String> field : prop.getFields().entrySet()) {
             doc.getRange().replaceText(field.getKey(), row.getData().get(field.getValue()));
         }
         for (Map.Entry<String, String> replacement : prop.getReplacements().entrySet()) {
             doc.getRange().replaceText(replacement.getKey(), replacement.getValue());
         }
-
-        // System.out.println("Text of file: " + prop.getDocumentName());
-        // System.out.println(text);
-        // System.out.println("\r\n\r\n\r\n");
-        File f = new File(dir + "/" + "Item" + num + "-" + prop.getDocumentName());
+        String docName = prop.getDocumentName().split(" blank")[0];
+        String directory = AuctionFilesGenerator.dir;
+        File f = new File(directory + "/" + dir + "/Item" + num + "-" + docName + ".doc");
         f.createNewFile();
         FileOutputStream fout = new FileOutputStream(f);
         doc.write(fout);
         fout.close();
     }
 
-    public void generateDocxFile(ExtractedRow row, int num, WordDocumentProperties prop)
+    private void generateDocxFile(ExtractedRow row, int num, WordDocumentProperties prop)
             throws Exception {
         XWPFDocument doc = new XWPFDocument(new FileInputStream(prop.getDocumentName()));
-        XWPFWordExtractor a = new XWPFWordExtractor(doc);
-        String text = a.getText();
-        // System.out.println("Text of file: " + prop.getDocumentName());
-        // System.out.println(text);
-        // System.out.println("\r\n\r\n\r\n");
-        a.close();
+        for (Map.Entry<String, String> field : prop.getFields().entrySet()) {
+
+        }
+    }
+
+    public void generateCardsAndSigns(List<ExtractedRow> rows, WordDocumentProperties prop)
+            throws Exception {
+        HWPFDocument doc = new HWPFDocument(new FileInputStream(prop.getDocumentName()));
+        TableIterator itr = new TableIterator(doc.getRange());
+        for (; itr.hasNext();) {
+            Table t = itr.next();
+            
+            System.out.println("Table: " + t);
+        }
+        // iterate through all items and generate a bid card
+        // there will be 2 cards per page
+        for (ExtractedRow row : rows) {
+            
+        }
     }
 }

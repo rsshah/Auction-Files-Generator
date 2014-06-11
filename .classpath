@@ -12,7 +12,7 @@
 	<classpathentry kind="lib" path="C:/Users/Rahul/Documents/workspace/AuctionFilesGenerator/lib/poi-excelant-3.10-FINAL-20140208.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Rahul/Documents/workspace/AuctionFilesGenerator/lib/poi-ooxml-3.10-FINAL-20140208.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Rahul/Documents/workspace/AuctionFilesGenerator/lib/poi-ooxml-schemas-3.10-FINAL-20140208.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rahul/Documents/workspace/AuctionFilesGenerator/lib/poi-scratchpad-3.10-FINAL-20140208.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Rahul/Documents/workspace/AuctionFilesGenerator/lib/poi-scratchpad-3.10-FINAL-20140208.jar" sourcepath="C:/Users/Rahul/.m2/repository/org/apache/poi/poi-scratchpad/3.10-FINAL/poi-scratchpad-3.10-FINAL-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Rahul/Documents/workspace/AuctionFilesGenerator/lib/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Rahul/Documents/workspace/AuctionFilesGenerator/lib/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>

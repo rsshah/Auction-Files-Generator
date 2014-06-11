@@ -14,6 +14,7 @@ import com.ucsd.giraffe.main.extractor.ExtractedRow;
 public class AuctionFilesGenerator {
     private File excelFile = null;
     private JFrame window = null;
+    public static String dir;
 
     public static void main(String[] args) {
         AuctionFilesGenerator generator = new AuctionFilesGenerator();
@@ -56,9 +57,19 @@ public class AuctionFilesGenerator {
         buyerThanks.addField("< field d                     >", "description for bid card");
         buyerThanks.addReplacement("< field b   >  ", extractor.getTitle());
         editor.registerDocument(buyerThanks);
-        // Add bid cards and signs (TODO)
-
+        // Add bid cards and signs
+        // ->NOT EXTENSIBLE; ABSTRACT TO A BETTER INTERFACE<-
+        WordDocumentProperties bidsigns = new WordDocumentProperties("bid cards and signs.doc", true);
+        bidsigns.addField("<field name>", "description for bid card");
+        bidsigns.addField("<field value>", "value");
+        bidsigns.addField("<field startingbid>", "starting bid");
+        bidsigns.addField("<field bidinc2>", "2nd increment");
+        bidsigns.addField("<field bidinc3>", "3rd increment");
+        bidsigns.addField("<field bidinc4>", "4th increment");
+        bidsigns.addField("<field bidinc5>", "5th increment");
+        bidsigns.addField("<field buyitnow", "buy it now price");
         try {
+            editor.generateCardsAndSigns(rows, bidsigns);
             editor.edit(rows);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(window,
